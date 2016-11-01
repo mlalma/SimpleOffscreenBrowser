@@ -1,0 +1,32 @@
+SimpleOffscreenBrowser is a very plain example of how to use Chromium Embedded
+Framework (CEF) to render a web page to offscreen (or in this case, the system
+doesn't render it at all!) and then access the underlying HTML code of the page.
+The implementation is bare-bones and can be used as a skeleton for creating more
+complex programs that need full web page manipulation or rendering capabilities.
+
+The application is linked and tested against CEF 1921.1652 branch, downloaded
+from cefbuilds.com. I have tested this on Ubuntu 14.04, the code *should* work
+also on Mac OSX and Windows environments with no or very minor modifications.
+Some changes to the code will likely need to be made in case you want to use 
+newer CEF build. For library dependencies etc, see CEF homepage
+https://code.google.com/p/chromiumembedded/. Note that if you plan to run this 
+on Linux in pure terminal environment, you also need X Virtual Framebuffer.
+
+There are three command line arguments:
+
+--url  defines the web page url that will be fetched
+--out  defines the location of the file where the page HTML will be written to 
+       or "stdout" for dumping the HTML to standard output
+--time defines the time the program waits for page to be loaded. IsLoaded() and
+       other such methods are not optimal since CEF doesn't know when all the JS
+       scripts have been finalized, so it's better just to wait for pre-defined
+       amount of seconds. The default is 10 seconds, but it can be changed with
+       this parameter, the value is given as the number of seconds that the
+       system will wait for the page to load
+
+Example:
+
+./SimpleOffscreen --url=http://www.google.com/ --out=stdout --time=5
+
+All source files in this project are distributed under MIT License:
+http://opensource.org/licenses/MIT
